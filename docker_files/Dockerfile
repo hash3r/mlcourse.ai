@@ -1,4 +1,5 @@
 FROM continuumio/anaconda3:5.2.0
+MAINTAINER Vlad Hnat
 
 # kaggle
 RUN apt-get update  && apt-get install -y build-essential unzip && \
@@ -13,7 +14,8 @@ RUN apt-get install --no-install-recommends -y apt-utils curl nano
 #Kaggle
 # Tensorflow doesn't support python 3.7 yet. See https://github.com/tensorflow/tensorflow/issues/20517
 # Fix to install tf 1.10:: Downgrade python 3.7->3.6.6 and downgrade Pandas 0.23.3->0.23.2
-RUN conda install -y python=3.6.6 
+# UPD fixed
+RUN conda install -y python=3.7
 
 RUN conda upgrade -y notebook
 
@@ -99,8 +101,9 @@ RUN pip install xgboost && \
 
 
 # PyTorch
+RUN pip3 install torch torchvision
 #RUN pip3 install http://download.pytorch.org/whl/cpu/torch-0.4.0-cp35-cp35m-linux_x86_64.whl 
-#RUN pip3 install --upgrade torchvision
+RUN pip3 install --upgrade torchvision
 
 # TensorFlow 
 #RUN pip3 install --upgrade tensorflow  
